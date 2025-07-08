@@ -83,6 +83,7 @@ pub mod queue_name_multi_index;
 struct ApiDoc;
 
 pub fn make_router() -> RouterAndDocs {
+    let decompression_layer = RequestDecompressionLayer::new().deflate(true).gzip(true);
     let router = Router::new()
         .route(
             "/api/check-liveness/v1",
@@ -131,7 +132,7 @@ pub fn make_router() -> RouterAndDocs {
             "/api/admin/trace-smtp-server/v1",
             get(admin_trace_smtp_server_v1::trace),
         )
-        .layer(RequestDecompressionLayer::new());
+        .layer(decompression_layer);
 
     RouterAndDocs {
         router,
