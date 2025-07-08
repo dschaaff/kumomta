@@ -783,7 +783,7 @@ pub fn register(lua: &Lua) -> anyhow::Result<()> {
 /// Inject a message using a given message body, with template expansion,
 /// to a list of recipients.
 ///
-/// The request body supports gzip, deflate, brotli, and zstd compression.
+/// The request body supports gzip and deflate compression.
 /// Set the Content-Encoding header appropriately (e.g., "gzip", "deflate").
 #[utoipa::path(
     post,
@@ -791,7 +791,7 @@ pub fn register(lua: &Lua) -> anyhow::Result<()> {
     path="/api/inject/v1",
     request_body(
         content = InjectV1Request,
-        description = "Message injection request. Supports compressed request bodies via Content-Encoding header (gzip, deflate, brotli, zstd)."
+        description = "Message injection request. Supports compressed request bodies via Content-Encoding header (gzip, deflate)."
     ),
     responses(
         (status = 200, description = "Message(s) injected successfully", body=InjectV1Response)
